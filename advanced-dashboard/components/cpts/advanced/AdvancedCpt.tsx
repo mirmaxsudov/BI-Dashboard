@@ -20,7 +20,7 @@ const AdvancedCpt = () => {
                     <CardDescription>Complex data relationships and patterns</CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <Metrics /> 
+                    <Metrics />
                 </CardContent>
             </Card>
         </div>

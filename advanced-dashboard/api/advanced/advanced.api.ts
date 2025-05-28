@@ -3,8 +3,8 @@ import $api from "../request"
 
 const BASE_ADVANCED_URL: string = "/advanced"
 
-const fetchStockPrices = async (): Promise<StockPriceResponse> => {
-    const response = await $api.get<StockPriceResponse>(BASE_ADVANCED_URL + "/stock-price");
+const fetchStockPrices = async (): Promise<StockPriceResponse[]> => {
+    const response = await $api.get<StockPriceResponse[]>(BASE_ADVANCED_URL + "/stock-prices");
     return response.data;
 }
 

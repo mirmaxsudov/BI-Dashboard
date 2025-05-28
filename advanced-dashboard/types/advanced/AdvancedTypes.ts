@@ -1,9 +1,9 @@
 type StockPriceResponse = {
     date: string;
-    openPrice: number;
-    highPrice: number;
-    lowPrice: number;
-    closePrice: number;
+    open: number;
+    high: number;
+    low: number;
+    close: number;
     volume: number;
 }
 

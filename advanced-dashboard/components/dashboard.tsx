@@ -1,7 +1,6 @@
 "use client"
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { DollarSign, Users, TrendingUp, TrendingDown, Download, RefreshCw, Target, Zap, Globe } from "lucide-react"
@@ -19,11 +18,12 @@ import { HeatmapChart } from "@/components/charts/heatmap-chart"
 import { GaugeChart } from "@/components/charts/gauge-chart"
 import { TreemapChart } from "@/components/charts/treemap-chart"
 import { WaterfallChart } from "@/components/charts/waterfall-chart"
-import { CandlestickChart } from "@/components/charts/candlestick-chart"
 import { ProgressChart } from "@/components/charts/progress-chart"
 import { BubbleChart } from "@/components/charts/bubble-chart"
 import { SankeyChart } from "@/components/charts/sankey-chart"
 import AdvancedCpt from "./cpts/advanced/AdvancedCpt"
+import ReportCpt from "./cpts/reports/ReportsCpt"
+import PerformanceCpt from "./cpts/performance/PerformanceCpt"
 
 export function Dashboard() {
   return (
@@ -262,152 +262,14 @@ export function Dashboard() {
             </Card>
           </div>
         </TabsContent>
-
         <TabsContent value="performance" className="space-y-4">
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
-            <Card className="col-span-4">
-              <CardHeader>
-                <CardTitle>Performance Metrics</CardTitle>
-                <CardDescription>Key performance indicators across channels</CardDescription>
-              </CardHeader>
-              <CardContent className="pl-2">
-                <PerformanceChart />
-              </CardContent>
-            </Card>
-            <Card className="col-span-3">
-              <CardHeader>
-                <CardTitle>Geographic Distribution</CardTitle>
-                <CardDescription>User distribution by region</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <GeographicChart />
-              </CardContent>
-            </Card>
-          </div>
-
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
-            <Card className="col-span-3">
-              <CardHeader>
-                <CardTitle>User Growth</CardTitle>
-                <CardDescription>User acquisition trends</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <UserGrowthChart />
-              </CardContent>
-            </Card>
-            <Card className="col-span-4">
-              <CardHeader>
-                <CardTitle>Real-time Activity</CardTitle>
-                <CardDescription>Live user activity and engagement</CardDescription>
-              </CardHeader>
-              <CardContent className="pl-2">
-                <RealtimeChart />
-              </CardContent>
-            </Card>
-          </div>
+          <PerformanceCpt />
         </TabsContent>
         <TabsContent value="advanced" className="space-y-4">
-          <AdvancedCpt/>
+          <AdvancedCpt />
         </TabsContent>
         <TabsContent value="reports" className="space-y-4">
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            <Card className="relative overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-purple-500/5" />
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <DollarSign className="h-5 w-5" />
-                  Monthly Report
-                </CardTitle>
-                <CardDescription>Comprehensive monthly performance summary</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm">Revenue Growth</span>
-                    <Badge variant="secondary" className="bg-green-100 text-green-800">
-                      +15.2%
-                    </Badge>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm">User Acquisition</span>
-                    <Badge variant="secondary" className="bg-blue-100 text-blue-800">
-                      +8.7%
-                    </Badge>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm">Conversion Rate</span>
-                    <Badge variant="destructive">-2.1%</Badge>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm">Customer Satisfaction</span>
-                    <Badge className="bg-purple-100 text-purple-800">94.2%</Badge>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="relative overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-br from-green-500/5 to-emerald-500/5" />
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <TrendingUp className="h-5 w-5" />
-                  Quarterly Trends
-                </CardTitle>
-                <CardDescription>Quarter-over-quarter performance analysis</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm">Q4 vs Q3</span>
-                    <Badge className="bg-green-100 text-green-800">+22.5%</Badge>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm">Customer Retention</span>
-                    <Badge className="bg-blue-100 text-blue-800">94.2%</Badge>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm">Market Share</span>
-                    <Badge variant="secondary">12.8%</Badge>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm">Profit Margin</span>
-                    <Badge className="bg-purple-100 text-purple-800">28.5%</Badge>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="relative overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-pink-500/5" />
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Globe className="h-5 w-5" />
-                  Annual Summary
-                </CardTitle>
-                <CardDescription>Year-end performance overview</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm">Total Revenue</span>
-                    <Badge className="bg-green-100 text-green-800">$2.4M</Badge>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm">New Customers</span>
-                    <Badge className="bg-blue-100 text-blue-800">15,420</Badge>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm">ROI</span>
-                    <Badge className="bg-purple-100 text-purple-800">285%</Badge>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm">Global Reach</span>
-                    <Badge variant="secondary">45 Countries</Badge>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
+          <ReportCpt />
         </TabsContent>
       </Tabs>
     </div>
