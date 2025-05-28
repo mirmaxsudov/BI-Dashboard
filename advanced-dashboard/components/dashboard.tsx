@@ -23,6 +23,7 @@ import { CandlestickChart } from "@/components/charts/candlestick-chart"
 import { ProgressChart } from "@/components/charts/progress-chart"
 import { BubbleChart } from "@/components/charts/bubble-chart"
 import { SankeyChart } from "@/components/charts/sankey-chart"
+import AdvancedCpt from "./cpts/advanced/AdvancedCpt"
 
 export function Dashboard() {
   return (
@@ -305,51 +306,9 @@ export function Dashboard() {
             </Card>
           </div>
         </TabsContent>
-
         <TabsContent value="advanced" className="space-y-4">
-          <div className="grid gap-4 md:grid-cols-2">
-            <Card>
-              <CardHeader>
-                <CardTitle>Stock Price Analysis</CardTitle>
-                <CardDescription>Candlestick chart with volume indicators</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <CandlestickChart />
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader>
-                <CardTitle>Advanced Metrics</CardTitle>
-                <CardDescription>Complex data relationships and patterns</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <div className="text-2xl font-bold text-green-600">98.5%</div>
-                      <div className="text-sm text-muted-foreground">Uptime</div>
-                    </div>
-                    <div className="space-y-2">
-                      <div className="text-2xl font-bold text-blue-600">2.3s</div>
-                      <div className="text-sm text-muted-foreground">Avg Response</div>
-                    </div>
-                  </div>
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <div className="text-2xl font-bold text-purple-600">15.2K</div>
-                      <div className="text-sm text-muted-foreground">API Calls</div>
-                    </div>
-                    <div className="space-y-2">
-                      <div className="text-2xl font-bold text-orange-600">99.1%</div>
-                      <div className="text-sm text-muted-foreground">Success Rate</div>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
+          <AdvancedCpt/>
         </TabsContent>
-
         <TabsContent value="reports" className="space-y-4">
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             <Card className="relative overflow-hidden">
