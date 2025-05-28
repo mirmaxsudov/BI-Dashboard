@@ -5,10 +5,10 @@ import java.time.LocalDate;
 
 public record StockPriceRecordDto(
         LocalDate date,
-        BigDecimal openPrice,
-        BigDecimal highPrice,
-        BigDecimal lowPrice,
-        BigDecimal closePrice,
+        BigDecimal open,
+        BigDecimal high,
+        BigDecimal low,
+        BigDecimal close,
         Long volume
 ) {
 }
