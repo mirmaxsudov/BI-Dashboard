@@ -1,8 +1,12 @@
 package uz.pdp.mirmaxsudov.BI.Dashboard.model.entity.overview;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 @Entity
+@Getter
+@AllArgsConstructor
 @Table(name = "user_engagement")
 public class EngagementPoint {
 

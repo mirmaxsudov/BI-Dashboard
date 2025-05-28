@@ -1,10 +1,15 @@
 package uz.pdp.mirmaxsudov.BI.Dashboard.model.entity.advanced;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "stock_price_record")
 public class StockPriceRecord {
 

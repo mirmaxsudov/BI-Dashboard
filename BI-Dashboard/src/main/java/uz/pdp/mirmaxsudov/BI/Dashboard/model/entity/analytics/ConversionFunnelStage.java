@@ -1,7 +1,11 @@
 package uz.pdp.mirmaxsudov.BI.Dashboard.model.entity.analytics;
 
 import jakarta.persistence.*;
+import lombok.Data;
+import lombok.Getter;
 
+@Data
+@Getter
 @Entity
 @Table(name = "conversion_funnel_stage")
 public class ConversionFunnelStage {

@@ -1,7 +1,9 @@
 package uz.pdp.mirmaxsudov.BI.Dashboard.model.entity.performance;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
+@Data
 @Entity
 @Table(name = "channel_performance_metric")
 public class ChannelPerformanceMetric {

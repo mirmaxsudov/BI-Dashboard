@@ -1,8 +1,12 @@
 package uz.pdp.mirmaxsudov.BI.Dashboard.model.entity.advanced;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "advanced_metric")
 public class AdvancedMetric {
 

@@ -1,10 +1,11 @@
 package uz.pdp.mirmaxsudov.BI.Dashboard.model.entity.performance;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.time.LocalDateTime;
 
-
+@Data
 @Entity
 @Table(name = "real_time_activity")
 public class RealTimeActivityEntry {
