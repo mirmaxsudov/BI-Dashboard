@@ -1,0 +1,4 @@
+package uz.pdp.mirmaxsudov.BI.Dashboard.model.entity;
+
+public class MonthlyFinancial {
+}
