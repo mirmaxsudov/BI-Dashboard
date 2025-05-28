@@ -1,5 +1,6 @@
 package uz.pdp.mirmaxsudov.BI.Dashboard.controller.advanced;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,21 +19,14 @@ public class AdvancedController {
         this.advancedService = advancedService;
     }
 
-    /**
-     * GET /api/advanced/stock-prices
-     * Returns all stock price records for candlestick chart
-     */
     @GetMapping("/stock-prices")
     public List<StockPriceRecordDto> getStockPrices() {
         return advancedService.getAllStockPrices();
     }
 
-    /**
-     * GET /api/advanced/metrics
-     * Returns key metrics (Uptime, API Calls, Avg Response, Success Rate)
-     */
     @GetMapping("/metrics")
     public List<AdvancedMetricDto> getAdvancedMetrics() {
+        System.out.println("getAdvancedMetrics");
         return advancedService.getAllAdvancedMetrics();
     }
 }
