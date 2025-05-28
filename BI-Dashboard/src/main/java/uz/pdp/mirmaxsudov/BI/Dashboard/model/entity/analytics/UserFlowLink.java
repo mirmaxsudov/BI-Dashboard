@@ -1,8 +1,12 @@
 package uz.pdp.mirmaxsudov.BI.Dashboard.model.entity.analytics;
 
 import jakarta.persistence.*;
+import lombok.Data;
+import lombok.Getter;
 
+@Data
 @Entity
+@Getter
 @Table(name = "user_flow_link")
 public class UserFlowLink {
     @Id
@@ -17,6 +21,4 @@ public class UserFlowLink {
 
     @Column(nullable = false)
     private Integer count;          // number of users flowing from source to target
-
-    // getters and setters
 }

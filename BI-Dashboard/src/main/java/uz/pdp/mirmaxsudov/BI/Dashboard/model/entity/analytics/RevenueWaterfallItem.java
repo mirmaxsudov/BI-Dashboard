@@ -1,9 +1,13 @@
 package uz.pdp.mirmaxsudov.BI.Dashboard.model.entity.analytics;
 
 import jakarta.persistence.*;
+import lombok.Data;
+import lombok.Getter;
 
 import java.math.BigDecimal;
 
+@Data
+@Getter
 @Entity
 @Table(name = "revenue_waterfall_item")
 public class RevenueWaterfallItem {

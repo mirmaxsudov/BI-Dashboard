@@ -1,7 +1,9 @@
 package uz.pdp.mirmaxsudov.BI.Dashboard.model.entity.Reports;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
+@Data
 @Entity
 @Table(name = "monthly_report_metric")
 public class MonthlyReportMetric {
