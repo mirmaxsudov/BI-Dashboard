@@ -1,29 +1,14 @@
 "use client"
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { DollarSign, Users, TrendingUp, TrendingDown, Download, RefreshCw, Target, Zap, Globe } from "lucide-react"
-import { RevenueChart } from "@/components/charts/revenue-chart"
-import { UserGrowthChart } from "@/components/charts/user-growth-chart"
-import { SalesDistributionChart } from "@/components/charts/sales-distribution-chart"
-import { PerformanceChart } from "@/components/charts/performance-chart"
-import { TrafficSourcesChart } from "@/components/charts/traffic-sources-chart"
-import { ConversionFunnelChart } from "@/components/charts/conversion-funnel-chart"
-import { GeographicChart } from "@/components/charts/geographic-chart"
-import { RealtimeChart } from "@/components/charts/realtime-chart"
-import { RadarChart } from "@/components/charts/radar-chart"
-import { ScatterChart } from "@/components/charts/scatter-chart"
-import { HeatmapChart } from "@/components/charts/heatmap-chart"
-import { GaugeChart } from "@/components/charts/gauge-chart"
-import { TreemapChart } from "@/components/charts/treemap-chart"
-import { WaterfallChart } from "@/components/charts/waterfall-chart"
-import { ProgressChart } from "@/components/charts/progress-chart"
-import { BubbleChart } from "@/components/charts/bubble-chart"
-import { SankeyChart } from "@/components/charts/sankey-chart"
 import AdvancedCpt from "./cpts/advanced/AdvancedCpt"
 import ReportCpt from "./cpts/reports/ReportsCpt"
 import PerformanceCpt from "./cpts/performance/PerformanceCpt"
+import AnalyticsCpt from "./cpts/analytics/AnalyticsCpt"
+import OverviewCpt from "./cpts/overview/OverviewCpt"
 
 export function Dashboard() {
   return (
@@ -42,7 +27,6 @@ export function Dashboard() {
         </div>
       </div>
 
-      {/* Enhanced KPI Cards */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <Card className="relative overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-purple-500/10" />
@@ -116,8 +100,6 @@ export function Dashboard() {
           </CardContent>
         </Card>
       </div>
-
-      {/* Enhanced Tabs with More Charts */}
       <Tabs defaultValue="overview" className="space-y-4">
         <TabsList className="grid w-full grid-cols-5">
           <TabsTrigger value="overview">Overview</TabsTrigger>
@@ -128,139 +110,10 @@ export function Dashboard() {
         </TabsList>
 
         <TabsContent value="overview" className="space-y-4">
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
-            <Card className="col-span-4">
-              <CardHeader>
-                <CardTitle>Revenue Overview</CardTitle>
-                <CardDescription>Monthly revenue trends with animated transitions</CardDescription>
-              </CardHeader>
-              <CardContent className="pl-2">
-                <RevenueChart />
-              </CardContent>
-            </Card>
-            <Card className="col-span-3">
-              <CardTitle className="p-6 pb-2">Sales Distribution</CardTitle>
-              <CardContent>
-                <SalesDistributionChart />
-              </CardContent>
-            </Card>
-          </div>
-
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
-            <Card className="col-span-3">
-              <CardHeader>
-                <CardTitle>Performance Radar</CardTitle>
-                <CardDescription>Multi-dimensional performance analysis</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <RadarChart />
-              </CardContent>
-            </Card>
-            <Card className="col-span-4">
-              <CardHeader>
-                <CardTitle>User Engagement Scatter</CardTitle>
-                <CardDescription>Session duration vs page views correlation</CardDescription>
-              </CardHeader>
-              <CardContent className="pl-2">
-                <ScatterChart />
-              </CardContent>
-            </Card>
-          </div>
-
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            <Card>
-              <CardHeader>
-                <CardTitle>Performance Gauge</CardTitle>
-                <CardDescription>Real-time system performance</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <GaugeChart />
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader>
-                <CardTitle>Goal Progress</CardTitle>
-                <CardDescription>Monthly targets and achievements</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <ProgressChart />
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader>
-                <CardTitle>Activity Heatmap</CardTitle>
-                <CardDescription>User activity by hour and day</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <HeatmapChart />
-              </CardContent>
-            </Card>
-          </div>
+          <OverviewCpt />
         </TabsContent>
-
         <TabsContent value="analytics" className="space-y-4">
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
-            <Card className="col-span-4">
-              <CardHeader>
-                <CardTitle>Traffic Sources</CardTitle>
-                <CardDescription>Website traffic breakdown with animations</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <TrafficSourcesChart />
-              </CardContent>
-            </Card>
-            <Card className="col-span-3">
-              <CardHeader>
-                <CardTitle>Conversion Funnel</CardTitle>
-                <CardDescription>User journey through conversion stages</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <ConversionFunnelChart />
-              </CardContent>
-            </Card>
-          </div>
-
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
-            <Card className="col-span-3">
-              <CardHeader>
-                <CardTitle>Market Treemap</CardTitle>
-                <CardDescription>Market share visualization</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <TreemapChart />
-              </CardContent>
-            </Card>
-            <Card className="col-span-4">
-              <CardHeader>
-                <CardTitle>Revenue Waterfall</CardTitle>
-                <CardDescription>Revenue breakdown and flow analysis</CardDescription>
-              </CardHeader>
-              <CardContent className="pl-2">
-                <WaterfallChart />
-              </CardContent>
-            </Card>
-          </div>
-
-          <div className="grid gap-4 md:grid-cols-2">
-            <Card>
-              <CardHeader>
-                <CardTitle>User Flow Sankey</CardTitle>
-                <CardDescription>User journey flow visualization</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <SankeyChart />
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader>
-                <CardTitle>Engagement Bubble Chart</CardTitle>
-                <CardDescription>User segments by engagement metrics</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <BubbleChart />
-              </CardContent>
-            </Card>
-          </div>
+          <AnalyticsCpt />
         </TabsContent>
         <TabsContent value="performance" className="space-y-4">
           <PerformanceCpt />

@@ -3,11 +3,13 @@ package uz.pdp.mirmaxsudov.BI.Dashboard.model.entity.overview;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
 @Entity
 @Getter
+@NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "sales_distribution_category")
 public class SalesDistributionCategory {

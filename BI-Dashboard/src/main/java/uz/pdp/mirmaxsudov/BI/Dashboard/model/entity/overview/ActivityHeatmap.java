@@ -3,9 +3,11 @@ package uz.pdp.mirmaxsudov.BI.Dashboard.model.entity.overview;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
+@NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "activity_heatmap")
 public class ActivityHeatmap {

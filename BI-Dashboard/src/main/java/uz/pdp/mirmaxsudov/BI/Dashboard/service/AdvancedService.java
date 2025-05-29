@@ -14,8 +14,10 @@ public class AdvancedService {
     private final StockPriceRecordRepository stockRepo;
     private final AdvancedMetricRepository metricRepo;
 
-    public AdvancedService(StockPriceRecordRepository stockRepo,
-                           AdvancedMetricRepository metricRepo) {
+    public AdvancedService(
+            StockPriceRecordRepository stockRepo,
+            AdvancedMetricRepository metricRepo
+    ) {
         this.stockRepo = stockRepo;
         this.metricRepo = metricRepo;
     }
