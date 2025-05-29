@@ -8,6 +8,6 @@ import java.math.BigDecimal;
 @Data
 @AllArgsConstructor
 public class MarketTreemapSegmentDto {
-    private String segmentName;
+    private String name;
     private BigDecimal value;
 }

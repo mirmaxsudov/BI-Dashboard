@@ -5,25 +5,16 @@ import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { DollarSign, Users, TrendingUp, TrendingDown, Download, RefreshCw, Target, Zap, Globe } from "lucide-react"
 import { RevenueChart } from "@/components/charts/revenue-chart"
-import { UserGrowthChart } from "@/components/charts/user-growth-chart"
 import { SalesDistributionChart } from "@/components/charts/sales-distribution-chart"
-import { PerformanceChart } from "@/components/charts/performance-chart"
-import { TrafficSourcesChart } from "@/components/charts/traffic-sources-chart"
-import { ConversionFunnelChart } from "@/components/charts/conversion-funnel-chart"
-import { GeographicChart } from "@/components/charts/geographic-chart"
-import { RealtimeChart } from "@/components/charts/realtime-chart"
 import { RadarChart } from "@/components/charts/radar-chart"
 import { ScatterChart } from "@/components/charts/scatter-chart"
 import { HeatmapChart } from "@/components/charts/heatmap-chart"
 import { GaugeChart } from "@/components/charts/gauge-chart"
-import { TreemapChart } from "@/components/charts/treemap-chart"
-import { WaterfallChart } from "@/components/charts/waterfall-chart"
 import { ProgressChart } from "@/components/charts/progress-chart"
-import { BubbleChart } from "@/components/charts/bubble-chart"
-import { SankeyChart } from "@/components/charts/sankey-chart"
 import AdvancedCpt from "./cpts/advanced/AdvancedCpt"
 import ReportCpt from "./cpts/reports/ReportsCpt"
 import PerformanceCpt from "./cpts/performance/PerformanceCpt"
+import AnalyticsCpt from "./cpts/analytics/AnalyticsCpt"
 
 export function Dashboard() {
   return (
@@ -42,7 +33,6 @@ export function Dashboard() {
         </div>
       </div>
 
-      {/* Enhanced KPI Cards */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <Card className="relative overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-purple-500/10" />
@@ -199,68 +189,7 @@ export function Dashboard() {
         </TabsContent>
 
         <TabsContent value="analytics" className="space-y-4">
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
-            <Card className="col-span-4">
-              <CardHeader>
-                <CardTitle>Traffic Sources</CardTitle>
-                <CardDescription>Website traffic breakdown with animations</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <TrafficSourcesChart />
-              </CardContent>
-            </Card>
-            <Card className="col-span-3">
-              <CardHeader>
-                <CardTitle>Conversion Funnel</CardTitle>
-                <CardDescription>User journey through conversion stages</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <ConversionFunnelChart />
-              </CardContent>
-            </Card>
-          </div>
-
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
-            <Card className="col-span-3">
-              <CardHeader>
-                <CardTitle>Market Treemap</CardTitle>
-                <CardDescription>Market share visualization</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <TreemapChart />
-              </CardContent>
-            </Card>
-            <Card className="col-span-4">
-              <CardHeader>
-                <CardTitle>Revenue Waterfall</CardTitle>
-                <CardDescription>Revenue breakdown and flow analysis</CardDescription>
-              </CardHeader>
-              <CardContent className="pl-2">
-                <WaterfallChart />
-              </CardContent>
-            </Card>
-          </div>
-
-          <div className="grid gap-4 md:grid-cols-2">
-            <Card>
-              <CardHeader>
-                <CardTitle>User Flow Sankey</CardTitle>
-                <CardDescription>User journey flow visualization</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <SankeyChart />
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader>
-                <CardTitle>Engagement Bubble Chart</CardTitle>
-                <CardDescription>User segments by engagement metrics</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <BubbleChart />
-              </CardContent>
-            </Card>
-          </div>
+          <AnalyticsCpt />
         </TabsContent>
         <TabsContent value="performance" className="space-y-4">
           <PerformanceCpt />
