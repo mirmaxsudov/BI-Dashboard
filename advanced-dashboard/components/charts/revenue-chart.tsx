@@ -2,21 +2,24 @@
 
 import { Area, AreaChart, XAxis, YAxis } from "recharts"
 import { type ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart"
+import { useEffect, useState } from "react"
+import { MonthlyFinancialsType } from "@/types/overview/OverviewTypes"
+import { fetchMonthlyFinancials } from "@/api/overview/overview.api"
 
-const data = [
-  { month: "Jan", revenue: 4000, profit: 2400 },
-  { month: "Feb", revenue: 3000, profit: 1398 },
-  { month: "Mar", revenue: 2000, profit: 9800 },
-  { month: "Apr", revenue: 2780, profit: 3908 },
-  { month: "May", revenue: 1890, profit: 4800 },
-  { month: "Jun", revenue: 2390, profit: 3800 },
-  { month: "Jul", revenue: 3490, profit: 4300 },
-  { month: "Aug", revenue: 4000, profit: 2400 },
-  { month: "Sep", revenue: 3000, profit: 1398 },
-  { month: "Oct", revenue: 2000, profit: 9800 },
-  { month: "Nov", revenue: 2780, profit: 3908 },
-  { month: "Dec", revenue: 1890, profit: 4800 },
-]
+// const data = [
+//   { month: "Jan", revenue: 4000, profit: 2400 },
+//   { month: "Feb", revenue: 3000, profit: 1398 },
+//   { month: "Mar", revenue: 2000, profit: 9800 },
+//   { month: "Apr", revenue: 2780, profit: 3908 },
+//   { month: "May", revenue: 1890, profit: 4800 },
+//   { month: "Jun", revenue: 2390, profit: 3800 },
+//   { month: "Jul", revenue: 3490, profit: 4300 },
+//   { month: "Aug", revenue: 4000, profit: 2400 },
+//   { month: "Sep", revenue: 3000, profit: 1398 },
+//   { month: "Oct", revenue: 2000, profit: 9800 },
+//   { month: "Nov", revenue: 2780, profit: 3908 },
+//   { month: "Dec", revenue: 1890, profit: 4800 },
+// ]
 
 const chartConfig = {
   revenue: {
@@ -30,6 +33,18 @@ const chartConfig = {
 } satisfies ChartConfig
 
 export function RevenueChart() {
+  const [loading, setLoading] = useState(true)
+  const [data, setData] = useState<MonthlyFinancialsType[]>([])
+
+  useEffect(() => {
+    fetchMonthlyFinancials()
+      .then(setData)
+      .catch(console.error)
+      .finally(() => setLoading(false))
+  }, [])
+
+  if (loading) return;
+
   return (
     <ChartContainer config={chartConfig}>
       <AreaChart
@@ -44,10 +59,10 @@ export function RevenueChart() {
           dataKey="month"
           tickLine={false}
           axisLine={false}
-          tickMargin={8}
+          tickMargin={10}
           tickFormatter={(value) => value.slice(0, 3)}
         />
-        <YAxis hide />
+        <YAxis />
         <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
         <defs>
           <linearGradient id="fillRevenue" x1="0" y1="0" x2="0" y2="1">

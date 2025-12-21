@@ -1,37 +1,70 @@
 "use client"
 
-import { PolarAngleAxis, PolarGrid, Radar, RadarChart as RechartsRadarChart } from "recharts"
+import { PolarAngleAxis, PolarGrid, Radar, RadarChart as RechartsRadarChart, Tooltip } from "recharts"
 import { type ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart"
+import { useEffect, useState } from "react"
+import { RadarMetricsType } from "@/types/overview/OverviewTypes"
+import { fetchRadarMetrics } from "@/api/overview/overview.api"
 
-const data = [
-  { subject: "Performance", A: 120, B: 110, fullMark: 150 },
-  { subject: "Security", A: 98, B: 130, fullMark: 150 },
-  { subject: "Usability", A: 86, B: 130, fullMark: 150 },
-  { subject: "Reliability", A: 99, B: 100, fullMark: 150 },
-  { subject: "Scalability", A: 85, B: 90, fullMark: 150 },
-  { subject: "Efficiency", A: 65, B: 85, fullMark: 150 },
-]
-
+// Map your backend fields to the chart config keys
 const chartConfig = {
-  A: {
+  currentValue: {
     label: "Current",
     color: "hsl(var(--chart-1))",
   },
-  B: {
-    label: "Target",
+  baselineValue: {
+    label: "Baseline",
     color: "hsl(var(--chart-2))",
   },
 } satisfies ChartConfig
 
 export function RadarChart() {
+  const [loading, setLoading] = useState(true)
+  const [data, setData] = useState<RadarMetricsType[]>([])
+
+  useEffect(() => {
+    fetchRadarMetrics()
+      .then(setData)
+      .catch(console.error)
+      .finally(() => setLoading(false))
+  }, [])
+
+  if (loading) return <div>Loading…</div>
+
   return (
     <ChartContainer config={chartConfig} className="mx-auto aspect-square max-h-[300px]">
-      <RechartsRadarChart data={data}>
+      <RechartsRadarChart
+        cx="50%"
+        cy="50%"
+        outerRadius="80%"
+        data={data}
+      >
+        {/* Custom tooltip pulled through your UI layer */}
         <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
-        <PolarAngleAxis dataKey="subject" />
+
+        {/* Angle axis uses the `dimension` field */}
+        <PolarAngleAxis dataKey="dimension" />
         <PolarGrid />
-        <Radar dataKey="A" stroke="var(--color-A)" fill="var(--color-A)" fillOpacity={0.3} strokeWidth={2} />
-        <Radar dataKey="B" stroke="var(--color-B)" fill="var(--color-B)" fillOpacity={0.1} strokeWidth={2} />
+
+        {/* Radar for current values */}
+        <Radar
+          name={chartConfig.currentValue.label}
+          dataKey="currentValue"
+          stroke="var(--color-currentValue)"
+          fill="var(--color-currentValue)"
+          fillOpacity={0.3}
+          strokeWidth={2}
+        />
+
+        {/* Radar for baseline values */}
+        <Radar
+          name={chartConfig.baselineValue.label}
+          dataKey="baselineValue"
+          stroke="var(--color-baselineValue)"
+          fill="var(--color-baselineValue)"
+          fillOpacity={0.1}
+          strokeWidth={2}
+        />
       </RechartsRadarChart>
     </ChartContainer>
   )

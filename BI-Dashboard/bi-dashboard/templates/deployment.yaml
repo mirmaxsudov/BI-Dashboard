@@ -1,0 +1,80 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "bi-dashboard.fullname" . }}
+  labels:
+    {{- include "bi-dashboard.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "bi-dashboard.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "bi-dashboard.selectorLabels" . | nindent 8 }}
+        {{- with .Values.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    spec:
+      serviceAccountName: {{ include "bi-dashboard.serviceAccountName" . }}
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ include "bi-dashboard.name" . }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.targetPort }}
+              protocol: TCP
+
+          {{- if .Values.env }}
+          env:
+            {{- toYaml .Values.env | nindent 12 }}
+          {{- end }}
+
+          # For a simple "Hello" API, these probes are safe if your app responds on "/"
+          # Change path if your Spring Boot app uses "/actuator/health"
+{{/*          livenessProbe:*/}}
+{{/*            httpGet:*/}}
+{{/*              path: /*/}}
+{{/*              port: http*/}}
+{{/*            initialDelaySeconds: 20*/}}
+{{/*            periodSeconds: 10*/}}
+{{/*            timeoutSeconds: 2*/}}
+{{/*            failureThreshold: 6*/}}
+{{/*          readinessProbe:*/}}
+{{/*            httpGet:*/}}
+{{/*              path: /*/}}
+{{/*              port: http*/}}
+{{/*            initialDelaySeconds: 10*/}}
+{{/*            periodSeconds: 5*/}}
+{{/*            timeoutSeconds: 2*/}}
+{{/*            failureThreshold: 6*/}}
+
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

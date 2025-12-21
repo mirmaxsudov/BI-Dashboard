@@ -1,15 +1,6 @@
 import {
-  BarChart3,
-  Calendar,
   Home,
-  Inbox,
-  Search,
-  Settings,
   TrendingUp,
-  Users,
-  DollarSign,
-  Activity,
-  PieChart,
 } from "lucide-react"
 
 import {
@@ -33,14 +24,6 @@ const items = [
   }
 ]
 
-const secondaryItems = [
-  {
-    title: "Settings",
-    url: "#",
-    icon: Settings,
-  },
-]
-
 export function AppSidebar() {
   return (
     <Sidebar>
@@ -50,8 +33,8 @@ export function AppSidebar() {
             <TrendingUp className="h-4 w-4" />
           </div>
           <div className="grid flex-1 text-left text-sm leading-tight">
-            <span className="truncate font-semibold">DataViz Pro</span>
-            <span className="truncate text-xs text-muted-foreground">Analytics Platform</span>
+            <span className="truncate font-semibold">Abdurahmon's Dashboard</span>
+            <span className="truncate text-xs text-muted-foreground">Dashboard</span>
           </div>
         </div>
       </SidebarHeader>
@@ -63,23 +46,6 @@ export function AppSidebar() {
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild isActive={item.title === "Dashboard"}>
-                    <a href={item.url}>
-                      <item.icon />
-                      <span>{item.title}</span>
-                    </a>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
-        <SidebarGroup>
-          <SidebarGroupLabel>Tools</SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {secondaryItems.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
                     <a href={item.url}>
                       <item.icon />
                       <span>{item.title}</span>

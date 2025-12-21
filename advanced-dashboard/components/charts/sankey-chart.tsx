@@ -1,35 +1,65 @@
 "use client"
 
-const data = [
-  { source: "Website", target: "Sign Up", value: 1000 },
-  { source: "Website", target: "Browse", value: 2000 },
-  { source: "Social Media", target: "Sign Up", value: 500 },
-  { source: "Social Media", target: "Browse", value: 800 },
-  { source: "Sign Up", target: "Purchase", value: 300 },
-  { source: "Browse", target: "Purchase", value: 400 },
-  { source: "Browse", target: "Exit", value: 2400 },
-]
+import React, { useEffect, useState } from "react"
+import { ResponsiveContainer, Sankey, Tooltip } from "recharts"
+import { fetchUserFlow } from "@/api/analytics/analytics.api"
+import { UserFlowType } from "@/types/analytics/AnalyticsTypes"
 
 export function SankeyChart() {
+  const [loading, setLoading] = useState(true)
+  const [nodes, setNodes] = useState<{ name: string }[]>([])
+  const [links, setLinks] = useState<{ source: number; target: number; value: number }[]>([])
+
+  useEffect(() => {
+    fetchUserFlow()
+      .then((response: UserFlowType[]) => {
+        const nodeList = Array.from(
+          new Set(response.flatMap(d => [d.source, d.target]))
+        ).map(name => ({ name }))
+        setNodes(nodeList)
+
+        setLinks(response.map(d => ({
+          source: nodeList.findIndex(n => n.name === d.source),
+          target: nodeList.findIndex(n => n.name === d.target),
+          value: d.count,
+        })))
+      })
+      .catch(console.error)
+      .finally(() => setLoading(false))
+  }, [])
+
+  if (loading) return <div>Loading…</div>
+
   return (
-    <div className="w-full h-[250px] flex items-center justify-center">
-      <div className="text-center space-y-4">
-        <div className="grid grid-cols-3 gap-8 items-center">
-          <div className="space-y-2">
-            <div className="bg-blue-100 p-3 rounded text-sm font-medium">Website (3000)</div>
-            <div className="bg-green-100 p-3 rounded text-sm font-medium">Social (1300)</div>
-          </div>
-          <div className="space-y-2">
-            <div className="bg-purple-100 p-3 rounded text-sm font-medium">Sign Up (1500)</div>
-            <div className="bg-orange-100 p-3 rounded text-sm font-medium">Browse (2800)</div>
-          </div>
-          <div className="space-y-2">
-            <div className="bg-green-200 p-3 rounded text-sm font-medium">Purchase (700)</div>
-            <div className="bg-red-100 p-3 rounded text-sm font-medium">Exit (2400)</div>
-          </div>
-        </div>
-        <div className="text-xs text-muted-foreground">User Journey Flow Visualization</div>
-      </div>
+    <div className="w-full h-[400px]">
+      <ResponsiveContainer>
+        <Sankey
+          data={{ nodes, links }}
+          nodePadding={20}
+          nodeWidth={15}
+          link={{ stroke: "#8884d8" }}
+          style={{ fontSize: 12 }}
+        >
+          {/* custom tooltip inside the Sankey: */}
+          <Tooltip
+            content={({ active, payload }) => {
+              if (!active || !payload?.length) return null
+              // payload[0].payload has { source, target, value }
+              const { source, target, value } = payload[0].payload as any
+              const from = nodes[source].name
+              const to = nodes[target].name
+              return (
+                <div className="bg-white p-2 rounded shadow">
+                  <div className="font-semibold">
+                    {from} → {to}
+                  </div>
+                  <div>Count: {value}</div>
+                </div>
+              )
+            }}
+          />
+        </Sankey>
+      </ResponsiveContainer>
     </div>
   )
 }
