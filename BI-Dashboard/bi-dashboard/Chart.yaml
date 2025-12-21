@@ -1,0 +1,10 @@
+apiVersion: v2
+name: bi-dashboard
+description: Helm chart for BI Dashboard (Java app)
+type: application
+
+# Chart version (must be valid semver to pass helm lint)
+version: 0.1.0
+
+# App version (informational; can match your image tag)
+appVersion: "1.0.0"
