@@ -5,7 +5,9 @@ metadata:
   labels:
     {{- include "bi-dashboard.labels" . | nindent 4 }}
 spec:
+  {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
+  {{- end }}
   selector:
     matchLabels:
       {{- include "bi-dashboard.selectorLabels" . | nindent 6 }}
@@ -22,6 +24,7 @@ spec:
       {{- end }}
     spec:
       serviceAccountName: {{ include "bi-dashboard.serviceAccountName" . }}
+      automountServiceAccountToken: {{ .Values.serviceAccount.automount }}
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
@@ -30,7 +33,7 @@ spec:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
         - name: {{ include "bi-dashboard.name" . }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          image: "{{ .Values.image.repository }}:{{ default .Chart.AppVersion .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
@@ -38,34 +41,12 @@ spec:
             - name: http
               containerPort: {{ .Values.service.targetPort }}
               protocol: TCP
-
-          {{- if .Values.env }}
+          {{- with .Values.env }}
           env:
-            {{- toYaml .Values.env | nindent 12 }}
+            {{- toYaml . | nindent 12 }}
           {{- end }}
-
-          # For a simple "Hello" API, these probes are safe if your app responds on "/"
-          # Change path if your Spring Boot app uses "/actuator/health"
-{{/*          livenessProbe:*/}}
-{{/*            httpGet:*/}}
-{{/*              path: /*/}}
-{{/*              port: http*/}}
-{{/*            initialDelaySeconds: 20*/}}
-{{/*            periodSeconds: 10*/}}
-{{/*            timeoutSeconds: 2*/}}
-{{/*            failureThreshold: 6*/}}
-{{/*          readinessProbe:*/}}
-{{/*            httpGet:*/}}
-{{/*              path: /*/}}
-{{/*              port: http*/}}
-{{/*            initialDelaySeconds: 10*/}}
-{{/*            periodSeconds: 5*/}}
-{{/*            timeoutSeconds: 2*/}}
-{{/*            failureThreshold: 6*/}}
-
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
